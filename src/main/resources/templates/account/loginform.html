@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><!--thymeleaf 사용하기 위한 xmlnamespace 설정-->
+<head th:replace="fragments.html :: head"></head>
+<body class="bg-dark">
+<div th:replace="fragments.html :: main-nav"></div>
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+                            <h2>로그인</h2>
+                            <div class="mb-md-5 mt-md-4 pb-5 ">
+                                <div class="form-outline form-white mb-4">
+                                    <label class="form-label" for="typeEmailX">이메일 주소</label>
+                                    <input type="email" id="typeEmailX" placeholder="your@email.com" aria-describedby="emailHelp"
+                                           class="form-control form-control-lg" required>
+                                </div>
+
+                                <div class="form-outline form-white mb-4">
+                                    <label class="form-label" for="typePasswordX">비밀번호</label>
+                                    <input type="password" id="typePasswordX" aria-describedby="passwordHelp"
+                                           class="form-control form-control-lg" required>
+                                </div>
+
+
+                                <p class="mb-2"><a href="#!" class="text-primary-50 fw-bold">회원가입</a></p>
+                                <p class="small mb-3 pb-lg-2"><a class="text-white-50" href="#!">비밀번호를 잊으셨나요?</a></p>
+
+
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit">로그인</button>
+                                <hr class="mt-5">
+                                <div class="d-flex justify-content-center text-center mt-4 pt-1">
+                                    <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
+                                    <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
+                                    <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
+                                </div>
+                                <hr class="mt-4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:replace="fragments.html :: form-validation"></script>
+
+</body>
+</html>
