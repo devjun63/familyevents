@@ -38,8 +38,8 @@ public class AccountMapperTest {
 
     @Test
     public void find_test() throws  Exception{
-        Account findAccount = accountMapper.findAccount();
-        System.out.println(findAccount);
+        List<Account> findAccounts = accountMapper.findAccount();
+        System.out.println(findAccounts);
 
     }
 }

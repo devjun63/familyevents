@@ -3,6 +3,7 @@ package com.familyevents.entity;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 
 @Getter @Setter @EqualsAndHashCode(of = "id")
@@ -38,5 +39,21 @@ public class Account {
 
     private LocalDateTime emailCheckTokenGeneratedAt;
 
+    public void generateEmailCheckToken() {
+        this.emailCheckToken = UUID.randomUUID().toString();
+        this.emailCheckTokenGeneratedAt = LocalDateTime.now();
+    }
 
+    public void completeSignup() {
+        this.emailVerified = true;
+        this.joinedAt = LocalDateTime.now();
+    }
+
+    public boolean isValidToken(String token) {
+        return this.emailCheckToken.equals(token);
+    }
+
+    public boolean canSendConfirmEmail() {
+        return this.emailCheckTokenGeneratedAt.isBefore(LocalDateTime.now().minusHours(1));
+    }
 }

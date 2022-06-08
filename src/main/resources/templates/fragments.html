@@ -66,12 +66,24 @@
             height: 100vmin;
         }
 
+        @media screen and (min-width: 576px) {
+            .check-email {
+                width: 100%;
+                height: 800px;
+            }
+        }
+
 
         #sticky-footer {
             position: fixed;
             bottom:0;
             width: 100%;
         }
+
+        #rememberMe {
+            float: none;
+        }
+
 
         .gradient-custom {
         /* fallback for old browsers */
@@ -83,6 +95,8 @@
          /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
           background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
         }
+
+
     </style>
 </head>
 
@@ -129,18 +143,21 @@
                 </a>
             </li>
         </ul>
-        <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" href="login-form" role="button" id="dropdownMenuLink"
+        <div class="dropdown" sec:authorize="!isAuthenticated()">
+            <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink"
                data-bs-toggle="dropdown" aria-expanded="false">
                 로그인
             </a>
-
             <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item" href="login-form">로그인</a></li>
-                <hr>
-                <li><a class="dropdown-item" href="sign-up">회원가입</a></li>
-                <hr>
-                <div class="sns-buttons">
+                <li sec:authorize="!isAuthenticated()">
+                    <a class="dropdown-item" href="#" th:href="@{/login}">로그인</a>
+                    <hr>
+                </li>
+                <li sec:authorize="!isAuthenticated()">
+                    <a class="dropdown-item" href="#" th:href="@{/sign-up}">회원가입</a>
+                    <hr>
+                </li>
+                <div class="sns-buttons" sec:authorize="!isAuthenticated()">
                     <a class="dropdown-item" href="https://google.com">
                         <i class="fab fa-google"></i>
                     </a>
@@ -153,15 +170,39 @@
                 </div>
             </ul>
         </div>
+        <div class="dropdown" sec:authorize="isAuthenticated()">
+            <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                작성하기
+            </a>
+            <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuLink">
+                <li>
+                    <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/logout}" method="post">
+                        <button class="dropdown-item" type="submit">로그아웃</button>
+                    </form>
+                    <hr>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#" th:href="@{/schedule}">일정 추가하기</a>
+                    <hr>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#" th:href="@{/add_relation}">add relation</a>
+                    <hr>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
-
+<!--
 <footer th:fragment="footer" id="sticky-footer" class="flex-shrink-0 bg-dark text-white-50 py-4">
     <hr class="py-2 bg-black">
     <div class="container text-center">
         <small>Copyright &copy; 2022-2022 devjun제작 / 문의메일 : devjun63@gmail.com</small>
     </div>
 </footer>
+-->
+
 
 <footer th:fragment="index_footer" class="flex-shrink-0 bg-dark text-white-50 py-4">
     <hr class="py-2 bg-black">
@@ -173,18 +214,17 @@
 
 <script type="application/javascript" th:fragment="form-validation">
     (function () {
-        'use strict';
+<!--        'use strict';-->
 
         window.addEventListener('load', function () {
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
+            let forms = document.getElementsByClassName('needs-validation');
 
             // Loop over them and prevent submission
             Array.prototype.filter.call(forms, function (form) {
                 form.addEventListener('submit', function (event) {
                     if (form.checkValidity() === false) {
                         event.preventDefault();
-                        event.stopPropagation();
                     }
                     form.classList.add('was-validated')
                 }, false)

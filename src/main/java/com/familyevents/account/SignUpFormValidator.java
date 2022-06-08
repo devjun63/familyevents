@@ -11,7 +11,7 @@ import org.springframework.validation.Validator;
 // lombok -> private fianl에 해당하는 member variable의 생성사를 만들어줌
 public class SignUpFormValidator implements Validator {
 
-    //private final AccountRepository accountRepository;    // bean
+    private final AccountRepository accountRepository;    // bean
 
     /*
     @RequiredArgsConstructor ->
@@ -30,10 +30,10 @@ public class SignUpFormValidator implements Validator {
 
 
     @Override
-    public void validate(Object o, Errors errors) {
+    public void validate(Object object, Errors errors) {
         // TODO email, nickname 중복 여부 검사
-        SignUpForm signUpForm = (SignUpForm)errors;
-        /*
+        SignUpForm signUpForm = (SignUpForm)object;
+
         if(accountRepository.existsByEmail(signUpForm.getEmail())){
             errors.rejectValue("email","invalid.email", new Object[]{signUpForm.getEmail()}, "이미 사용중인 이메일입니다.");
             // message 소스는 이번에 다루지 않고 국제화 서비스를 가정하고 메시지 다국화를 다루면서
@@ -42,7 +42,7 @@ public class SignUpFormValidator implements Validator {
                 errors.rejectValue("nickname","invalid.nickname", new Object[]{signUpForm.getNickname()}, "이미 사용중인 닉네임입니다.");
             }
         }
-        */
+
     }
 
 
